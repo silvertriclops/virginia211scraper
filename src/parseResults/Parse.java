@@ -1,8 +1,13 @@
 package parseResults;
 
+import getResults.StatusApp;
+
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -22,9 +27,16 @@ public class Parse {
 	 * data[i][9] = URL
 	 */
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		StatusApp status = new StatusApp();
+		
 		String[][] results = getResults();
 		String[][] data = new String[results.length][10];
+		status.progressBar.setMaximum(results.length);
+		status.progressBar.setValue(0);
+		status.txtStatus.setText("Parsing...");
+		System.out.println("Parsing...");
 		for (int i=0; i<results.length; i++) {
 			data[i][0] = results[i][0]; // Need
 			data[i][1] = results[i][1]; // Program
@@ -32,9 +44,11 @@ public class Parse {
 			for (int j=0; j<=7; j++) {
 				data[i][j+2] = parsed[j];
 			}
+			status.progressBar.setValue(i+1);
 		}
 		
-		SaveCSV.save(data);
+		SaveCSV.save(data, status);
+		status.txtStatus.setText("Done!");
 	}
 	
 	public static String[][] getResults() {

@@ -1,5 +1,10 @@
 package me.silvertriclops.getcarescraper;
 
+import java.io.PrintWriter;
+
+import org.jsoup.select.Elements;
+
+import getResults.StatusApp;
 import getResults.Strings;
 
 public class Run {
@@ -21,6 +26,36 @@ public class Run {
 			//String result = 
 			GetData.get(programs[a][0], programs[a][1], programs[a][2], programs[a][3]);
 		}
+	}
+	
+	public static void scrape2() throws Exception {
+		System.setProperty("jsse.enableSNIExtension", "false");
+		String[][] programs = Strings.programs;
+		PrintWriter file = new PrintWriter("/home/mrmp/Desktop/results.txt");
+		StatusApp status = new StatusApp();
+		
+		status.progressBar.setMaximum(programs.length);
+		for (int i=0; i<programs.length; i++) {
+			String page = getResults.GetResults.getPage(programs[i][0], programs[i][2]);
+			Elements results = getResults.GetResults.resultList(page);
+			for (int m=0; m<results.size(); m++) {
+				String escaped = results.get(m).toString()
+						.replace(new String("\\"), new String("\\\\"))
+						.replace(new String("\""), new String("\\\""));
+				String line = ("{\""
+						+ programs[i][1]
+						+ "\", \""
+						+ programs[i][3]
+						+ "\", \""
+						+ escaped
+						+ "\"},");
+				file.println(line);
+			}
+			status.progressBar.setValue(i+1);
+		}
+		
+		file.close();
+		System.out.print("Done");
 	}
 
 }

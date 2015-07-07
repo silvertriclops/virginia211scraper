@@ -26,9 +26,10 @@ public class GetResults {
 				{"1", "Arts/Culture/Recreation", "Clubs", "Clubs"}
 		};*/
 		String[][] programs = Strings.programs;
-		PrintWriter file = new PrintWriter("/home/mrmp/Desktop/results.txt");
+		PrintWriter file = new PrintWriter(System.getProperty("user.home") + "/Documents/results.txt");
 		StatusApp status = new StatusApp();
 		
+		status.txtStatus.setText("Retrieving data...");
 		status.progressBar.setMaximum(programs.length);
 		for (int i=0; i<programs.length; i++) {
 			String page = getPage(programs[i][0], programs[i][2]);

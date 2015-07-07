@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JProgressBar;
 
 public class App extends JFrame {
+	private static final long serialVersionUID = -4127857252257202564L;
 	private JFileChooser chooser = new JFileChooser();
 	private JTextField saveLocation;
 	JPanel panel = new JPanel();
