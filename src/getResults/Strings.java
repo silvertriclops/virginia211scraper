@@ -1,4 +1,4 @@
-package me.silvertriclops.getcarescraper;
+package getResults;
 
 public class Strings {
 	public static String[][] needs = {
@@ -371,5 +371,5 @@ public class Strings {
 			{"16", "Volunteers/Donations", "Donations", "Donations"},
 			{"16", "Volunteers/Donations", "Volunteer Programs", "Volunteer Programs"}
 	};
-	
+		
 }

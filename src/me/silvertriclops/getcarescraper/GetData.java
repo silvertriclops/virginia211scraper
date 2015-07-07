@@ -112,12 +112,12 @@ public class GetData {
 		return results.getElementsByTag("li");
 	}
 	
-	public static String getTitle(String d) {
+	/*public static String getTitle(String d) {
 		Document doc = Jsoup.parse(d);
 		Element results = doc.getElementById("results");
 		Elements resultlist = results.getElementsByTag("li");
 		return resultlist.get(4).getElementsByClass("results").text();
-	}
+	}*/
 	
 	public static String[] extractDataFromItem(Elements results, int num, String needName, String programName) {
 		String[] data = new String[10];
